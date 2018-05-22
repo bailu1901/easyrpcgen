@@ -1,0 +1,426 @@
+
+import "CommonData.proto";
+
+package DataContract;
+
+//登录
+message MsgLoginResult
+{	
+	required int64  				Id				= 1;
+	optional UserDetailInfo			UserInfo        = 3;
+	optional PlayerInfo   	 		PlayerInfo 		= 4;
+	optional bool					IsFcm			= 5;			
+
+	optional string		   	 		Msg 	 		= 10;
+}
+
+// 创建玩家消息
+message MsgCreateRole
+{
+	required int32 Sex = 1; // 性别
+	required string Name = 2; // 玩家名字
+    required CharacterAvatarData AvatarData = 3;
+}
+
+// 玩家位置和朝向
+message MsgSyncPlayerPosAndDir
+{
+	optional FloatVector3 Pos				= 1;
+	optional FloatVector3 Dir				= 2;
+	optional FloatVector3 Aim				= 3;
+
+
+	optional float Forward 			= 21;
+	optional float Strafe 			= 22;
+	optional float Jump 			= 23;
+	optional float Turn 			= 24;
+	
+}
+
+// 玩家行为
+message MsgSyncPlayerAction
+{
+	required PlayerActionType Action  = 1;   // 行为类型
+	repeated int32            Params  = 2;   // 参数
+}
+
+message MsgSpawnPlayer
+{
+	required int64 Id				= 1;
+	optional int32 Sex              = 2;
+	optional int32 Type 			= 3;
+	optional string Name			= 4;
+	optional int64 TeamId			= 5;
+	optional int64 VehicleId		= 6;
+	optional bool IsDead 			= 7;
+
+	optional MsgSyncPlayerPosAndDir	PosAndDir	= 10;
+	optional PlayerActionState	State	= 11;
+	optional BattleAvatarInfo	Avatar = 12;
+}
+
+
+
+//玩家伤害消息
+message MsgDamage
+{
+	required int64 Id = 1;
+	optional int64 AttackerId = 2;
+	optional int32 BodyPart = 3;
+	optional int32 Damage = 4;
+	optional FloatVector3 HitPosition	= 5;
+	optional int32 Type = 6;
+    optional int64 AttackWeapon = 7;
+    required DirectionType Dir = 8;  //伤害来源方向
+}
+
+//弹孔
+message MsgDecel
+{
+	required int64 Id = 1;
+	optional float fromX	= 2;
+	optional float fromY	= 3;
+	optional float fromZ	= 4;
+	optional float toX	= 5;
+	optional float toY	= 6;
+	optional float toZ	= 7;
+	optional float roX	= 8;
+	optional float roY	= 9;
+	optional float roZ	= 10;
+}
+
+
+
+//玩家死亡消息
+message MsgDead
+{
+	required int64 Id = 1;
+	required int64 KillerId = 2;
+}
+
+//玩家复活
+message MsgRelive
+{
+	required int64 Id = 1;
+}
+
+//玩家击杀
+message MsgKill
+{
+	required int32 Kill = 1;
+	required int32 Alive = 2;
+	required int64 Id=3;
+	required int64 KillId=4;
+	required int32 KillType=5;
+	required int32 WeaponItemId=6;
+}
+
+//角色使用的武器
+message MsgUsedWeapon
+{
+	required int64 Id = 1;
+	optional int32 weaponId = 2;
+    optional int32 CurrentWeaponIndex = 3;
+}
+
+
+//创建一辆车
+message MsgSpawnVehicle
+{
+    required int64 Id                       = 1;
+    optional int32 ItemId                   = 2;
+    optional MsgSyncVehicleState PosAndDir  = 3;
+    repeated MsgPlayerInVehicle Players     = 4;
+}
+
+//车上角色
+message MsgPlayerInVehicle
+{
+	required int64 PlayerId = 1;
+	required int32 Seat = 2;
+}
+
+//同步车辆位置
+message MsgSyncVehicleState
+{
+	optional FloatVector3 Pos				= 1;
+	optional FloatVector3 Dir				= 2;
+}
+
+//房间信息
+message RoomMemberInfo
+{
+	required int64 Id = 1;
+    required string Name = 2;
+}
+
+//房间信息
+message MsgRoomInfo
+{
+    required int64 Id = 1;
+    optional string Name = 2;
+    optional int32 Mode = 3;
+    repeated RoomMemberInfo MemberInfo1 = 4;
+    repeated RoomMemberInfo MemberInfo2 = 5;
+    optional int32 Status = 6;
+    optional int32 Total = 7;
+}
+
+//房间列表
+message MsgRoomList
+{
+    repeated MsgRoomInfo RoomInfoList = 1;
+}
+
+//游戏结果
+message MsgGameResult
+{
+	optional int32 Rank = 1;
+    optional int32 KillCount = 2;
+    optional int32 Total = 3;
+	optional string Name = 4;
+	optional int64	Gold = 5;
+	optional bool IsFcmOpen = 6;
+}
+
+
+message TreeSubCell
+{
+	optional FloatVector3 m_BoundBoxCenter = 1;
+	optional FloatVector3 m_BoundBoxExtents = 2;
+
+	optional FloatVector3 m_BoundSphereCenter = 3;
+	optional float  m_BoundSphereRadius = 4;
+
+	optional int32 m_PositionX = 5;
+	optional int32 m_PositionY = 6;
+
+	repeated TreeStoredInstance m_SubCells = 7;
+
+	repeated int32 test = 8;
+}
+
+message TreeStoredInstance
+{
+	optional int32 m_TreeHash = 1;
+	optional FloatVector3 m_WorldPosition = 2;
+	optional FloatVector3 m_WorldScale = 3;
+	optional float m_WorldRotation = 4;
+	optional bool m_IsTree = 5;
+
+	optional float m00 = 6;
+	optional float m01 = 7;
+	optional float m02 = 8;
+	optional float m03 = 9;
+
+	optional float m10 = 10;
+	optional float m11 = 11;
+	optional float m12 = 12;
+	optional float m13 = 13;
+
+	optional float m20 = 14;
+	optional float m21 = 15;
+	optional float m22 = 16;
+	optional float m23 = 17;
+
+	optional float m30 = 18;
+	optional float m31 = 19;
+	optional float m32 = 20;
+	optional float m33 = 21;
+
+	optional float centerX = 22;
+	optional float centerY = 23;
+	optional float centerZ = 24;
+
+	optional float extendsX = 25;
+	optional float extendsY = 26;
+	optional float extendsZ = 27;
+}
+
+// 同步其他玩家物品
+message MsgSynItem
+{
+	required int32 BodySlot = 1;//挂载点
+	required int32 ItemId   = 2;//物品ID
+	required bool IsDelete  = 3;//是否删除
+}
+
+// 拾取物品
+message MsgPickupItem
+{
+    required int32 BagPos = 1;
+    optional int64 Id = 2;
+    optional int64 EquipGunId = 3;
+    optional ItemData NewItem = 4;
+}
+
+// 穿戴或删除衣服
+message MsgWearItem
+{
+    required int64 Id = 1;
+    repeated int32 AddItemIds = 2;
+    repeated int32 DeletePoses = 3;
+}
+
+message MsgRemoveGunPart
+{
+    repeated Dict_long_int ItemCountChange = 1;
+    repeated SceneItemData BagItem = 2;
+    repeated SceneItemData SceneItem = 3;
+}
+
+// 装载子弹后需要删除道具
+message MsgReloadBullet
+{
+    repeated int64 DeleteIds = 1;
+    required int64 ReduceId = 2;
+    required int32 ReduceNum = 3;
+    required int32 TotalBullet = 4;
+}
+
+
+// 好友列表
+message MsgFriendList
+{
+    repeated FriendUnit Friends = 1;
+}
+
+message MsgBattlePlayerInfo
+{
+	required int64 Id = 1; //玩家ID
+	optional PlayerBattleAttribute Attr = 2; //玩家战斗属性
+	// 玩家装备信息
+}
+
+// 更换武器消息
+message MsgSwitchWeapon
+{
+	required int32 NewSlotPosition = 1; //新武器的挂载点，对应包裹位置
+	required int32 OldSlotPosition = 2; //当前武器的挂载点
+	required int32 WeaponItemId = 3; //武器的物品ID
+}
+
+// 队友标记点信息
+message MsgTeamMemberMarkInfo
+{
+	required int64 Id = 1; 
+	required FloatVector3 Pos = 2;
+}
+
+message MsgTeamMemberMarkList
+{
+	repeated MsgTeamMemberMarkInfo Info = 1; 
+}
+
+message MsgInteractiveInfo
+{
+	required int32 DataId = 1; 
+	required int32 State  = 2; 
+}
+
+message MsgInteractiveList
+{
+	repeated MsgInteractiveInfo Info = 1; 
+}
+message MsgMapPosInfo
+{
+	required int64 Id = 1;
+	required FloatVector3 Pos = 2;
+	required FloatVector3 RotateY = 3;
+}
+message MsgMapPosList
+{
+	repeated MsgMapPosInfo Info = 1;
+}
+message MsgGameMyPlayerInfo
+{
+    required int64					Id 				= 1;
+    required string					Name			= 2;
+    required int64					TeamId 			= 3;
+    required CharacterAvatarData    Avatar          = 4;
+}
+message MsgGameSceneInfo
+{
+	optional int64 GameId 				= 1;//GameId
+	optional FloatVector3 SpawnPos 			= 2;//出生位置
+	optional FloatVector3 SpawnDir 			= 3;//出生朝向
+
+	optional MsgInteractiveList InactiveList    = 10;//可交互物
+	repeated PlayerSampleInfo Fighters			= 11;//所有的Player
+	optional int64 GameSatrtTime				= 12;//游戏开始的时间点（起飞之后的）
+	optional int64 ServerTimeNow				= 13;//服务器当前时间
+    optional MsgGameMyPlayerInfo MyPlayer       = 14;// 自己的数据
+	optional int64 WaitStartTime				= 15;// 开始倒计时 已经开始则为0
+
+	optional float OrginX				= 20;	//地图起点X
+	optional float OrginY				= 21;	//地图起点Y
+	optional float SizeX				= 22;	//地图宽
+	optional float SizeY				= 23;	//地图长
+	optional float Side					= 24;	//地图块边长
+}
+message MsgUseDragInfo
+{
+	required int64 Id=1;
+	required int32 ItemId=2;
+}
+message MsgPlayerAddHpInfo
+{
+	required int64 Id=1;
+	required int32 Hp=2;
+}
+
+message MsgPlayerAddEnergyInfo
+{
+	required int64 Id=1;
+	required int32 Energy=2;
+}
+
+// 跳伞航线信息
+message MsgPlaneInfo
+{
+	required FloatVector3 StartPosition = 1; //起点
+	required FloatVector3 EndPosition = 2;   //终点
+	required FloatVector3 PassPosition = 3;  //特殊点
+	required float Speed = 4;                //速度
+	required float CanOpenParachuteHeight = 5; //可开伞高度
+	required float ForceOpenParachuteHeight = 6; //强制开伞高度
+	required float ForceCloseParachuteHeight = 7; //强制收伞高度
+}
+
+// 队伍内语音Id对应表
+message MsgVoiceIDMap
+{
+	repeated Dict_long_int IDMap = 1; //Map
+}
+
+message MsgMyShopGood
+{
+	optional int32 GoodId = 1; 		//钥匙个数
+	optional int32 BuyTimes = 2; 	//购买次数
+}
+message MsgMyShopBagGood
+{
+	optional int32 GoodId = 1; 		//Id
+	optional int32 Count  = 2; 		//个数
+}
+
+//商店数据
+message MsgShopData
+{
+	optional int32 KeyNum = 1; 		//钥匙个数
+	optional int64 Gold=2;			//金币个数
+	optional int64 Diamond=3;		//钻石个数
+	repeated MsgMyShopBagGood BagItem = 4;  //背包
+	repeated MsgMyShopGood Goods = 10; //商品
+}
+
+message MsgBombPoint
+{
+    optional FloatVector3 Center = 1;
+    optional int32 ItemId = 2;
+}
+
+message MsgBombPointList
+{
+    repeated MsgBombPoint BombPointList = 1;
+}

@@ -1,0 +1,82 @@
+package DataContract;
+
+enum ErrorCode 
+{
+	//通用错误码	
+  	OK = 0;							//正确
+	Unknow = 1;						//未知错误
+	NotOnline = 2;					//目标不在线
+
+	//登录相关
+	NoAccount = 100;				//没有此账号
+	PasswordIncorect = 101;			//密码不正确
+	LoginByOtherUser = 102;			//在其他地方登录
+	LoginErrorThirdParty = 103;		//第三方返回错误
+
+	//注册相关
+	DuplicateAccount = 120;			//账号重了
+	InvalidAccount = 121;			//账号不合法
+	InvalidPassword = 122;			//密码不合法
+    SensitiveWord = 123;            //敏感词
+
+	//注册相关
+	DuplicatePlayerName = 130;		//角色名字重了
+	InvalidPlayerName = 131;		//角色名字不合法
+
+
+    //物品
+    PickupFail = 200;               // 拾取失败
+    BagFull = 201;                  // 背包满了
+    NotFindItem = 202;              // 无法找到物品
+    NotFindBox = 203;              // 无法找到箱子
+    NotFindBoxItem = 204;          // 无法找到箱子内物品
+    CannotAddToGun = 205;          // 无法装到上
+	CannotUseItem=206;				//无法使用物品
+	UsingItem=207;					//正在使用物品
+	
+    //社交
+    DuplicateFriend = 300;			//好友重了
+    NoneFriend = 301;				//没有好友
+    CannotAddMySelf = 302;			//不能添加自己
+	FirendNumFull	= 303;			//好友数量已满
+	OtherFriendApplyListFull = 304; //目标玩家申请列表已经满了
+	OtherFirendNumFull	= 305;			//目标好友数量已满
+	DuplicateFriendApplyList = 306;		//申请列表里已经有了
+	BlackListFull = 307;			//黑名单满了
+	BlackListAleadyHave = 308;		//已经在黑名单里面了
+	NotFriend			=309;       // 不是好友
+	NotInBlackList      =310;	 	//黑名单中不存在这个人	
+	InBlackList		    =311;		//在黑名单里无法添加好友
+	InOtherBlackList		    =312;		//在别人黑名单里
+
+	//商店
+	ShopKeyNotEnough = 400;			//钥匙不够
+	ShopBuyItemMaxTimes = 401;		//购买次数到达上线
+	ShopOpenItemNoItem = 402;		//没有这个物品
+	ShopGoldNotEnough = 403;		//金币不够	
+    
+
+	//充值相关
+	RechargeSuccess = 500;			//充值成功
+
+
+
+
+
+    //游戏
+    IsMatching = 1000;				//正在匹配中
+    IsGaming = 1001;				//正在游戏中
+    AlreadyHasTeam = 1002;			//已经有队伍了
+	NoInteractive = 1003;           //没有这个交互物
+	NotInRoom = 1004;				//玩家不在房间内
+	NotAgreeInviteTeam = 1005;		//拒绝加入队伍
+	
+	NotAllReady = 1006;  			//不是所有玩家都准备了
+    HasDied=1007;					//玩家已经死亡
+	
+	StateError = 1008;				//玩家状态错误
+	NotTeamLeader = 1009;			//不是队长
+	TeamFull	= 1010;				//队伍已满
+
+
+}

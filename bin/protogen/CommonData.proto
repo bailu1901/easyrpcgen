@@ -1,0 +1,305 @@
+
+package DataContract;
+
+message FloatVector3
+{
+	required float X 		= 1;
+	required float Y 		= 2;
+	required float Z 		= 3;
+}
+
+message IntVector3
+{
+	required int32 X 		= 1;
+	required int32 Y 		= 2;
+	required int32 Z 		= 3;
+}
+
+message PlayerInfo
+{
+	optional int64					Id 				= 1;
+	optional int32					Type 			= 2;
+	optional string					Name			= 3;
+	optional int64					TeamId			= 4;
+
+	optional PlayerAvatarInfo 		Avatar 	    	= 10;
+}
+
+//玩家状态
+enum PlayerOnlineState
+{
+	UNKNOWN = 0;
+    Offline = 1;				//离线
+    OnLine = 2;					//在线
+    Matching = 3;				//匹配
+    Gaming = 4;					//游戏中
+}
+
+message PlayerSampleInfo
+{
+	optional int64					Id 				= 1;
+	optional int32					Type 			= 2;
+	optional string					Name			= 3;
+	optional PlayerOnlineState					State			= 4;
+	
+}
+
+message UserDetailInfo
+{	
+	optional int32					Sex				= 1;
+	optional int32					Age				= 2;
+	optional int32					Star			= 3;
+	optional int32					Blood			= 4;
+	optional int32					Adress			= 5;
+	optional int32					PhoneNum		= 6;
+	optional string					Email			= 7;
+	optional string					Desc			= 8;
+}
+
+message PlayerClothData
+{
+    required int32 SlotPos = 1;
+    required int32 ItemId = 2;
+    required int32 ColorId = 3;
+}
+
+message PlayerAvatarInfo
+{
+	optional float HeadSize			= 1;
+	optional float ArmLength 		= 2;
+
+    repeated PlayerClothData Cloths = 10;
+	optional int32 Coat				= 11;
+	optional int32 CoatColor		= 12;
+	optional int32 Trousers 		= 13;
+	optional int32 TrousersColor	= 14;
+    optional int32 Hair             = 15;
+    optional int32 HairColor        = 16;
+	optional int32 AvatarId			= 17;
+
+	optional int32 SkinColor		= 20;
+
+	optional int32 WeaponId			= 30;
+}
+
+message PlayerInfoList
+{
+	repeated PlayerInfo Infos 		= 1;
+}
+
+message Int64Array
+{
+	repeated int64 Items				= 1; 
+}
+
+message Int64ArrayList
+{
+	repeated Int64Array Items				= 1; 
+}
+
+message Uint64Array
+{
+	repeated uint64 Items				= 1; 
+}
+
+message Int32Array
+{
+	repeated int32 Items				= 1;
+}
+
+message PlayerHeadInfoMsg
+{
+	required int64		 CharacterId	= 1;
+	required string		 Name			= 2;
+	required int32		 RoleId			= 3;
+	required int32		 Level			= 4;	
+	required int32 		 Ladder			= 5;
+	required int32 		 FightValue		= 6;
+}
+
+message PlayerHeadInfoMsgList
+{
+	repeated PlayerHeadInfoMsg		 Characters	= 1;
+}
+
+
+message StringArray
+{
+	repeated string Items				= 1;
+}
+
+message ChatMessages
+{
+    repeated ChatMessage Messages       = 1;
+}
+
+message ChatMessage
+{
+    required int32 chatType             = 1;
+    required string Content             = 2;
+    required uint64 characterId         = 3;
+    optional string characterName       = 4;
+	optional bytes SoundData            = 5;
+}
+
+message ChatMessageContent
+{
+    required string Content             = 1;
+	optional bytes SoundData            = 2;
+	optional int32 Vip					= 3;
+	optional int32 Ladder			    = 4;
+}
+
+message Dict_int_int
+{
+}
+
+message Dict_int_string
+{
+}
+
+message Dict_int_Uint64Array
+{
+}
+
+message Dict_ulong_int
+{
+}
+
+message Dict_int_int_Data
+{
+	repeated Dict_int_int 				Data		= 1;
+}
+
+
+message Compensation
+{
+	required int32 						Id  		= 1;	//Type
+	repeated Dict_int_int 				Data		= 2;
+	optional int32 						Count  		= 3;
+}
+
+
+message Dict_int_Compensation
+{
+}
+
+
+message CompensationList
+{
+	repeated Dict_int_Compensation		Compensations	= 1;
+}
+
+
+message Vector2Int32
+{
+	required int32 x					= 1;	
+	required int32 y					= 2;
+}
+
+message PositionData
+{
+	required Vector2Int32   Pos			= 1;	
+	required Vector2Int32   Dir			= 2;	
+	optional int64         Time		= 3;	
+}
+
+message Vector3Float
+{
+    required float X = 1;
+    required float Y = 2;
+    required float Z = 3;
+}
+
+message ItemData
+{
+    required int32 ItemId = 1;
+    required int32 ItemCount = 2;
+    required int32 CurDurability = 3;
+    optional int32 ColorId = 4;
+}
+
+message SceneItemData
+{
+    required int64 Id = 1;
+    required ItemData ItemData = 2;
+    required Vector3Float Position = 3;
+}
+
+message SceneItems
+{
+    repeated SceneItemData Items = 1;
+}
+
+message Vec2Array
+{
+	repeated Vector2Int32 List = 1;
+}
+
+// 玩家行为类型
+enum PlayerActionType
+{
+	SkyDive                            = 0;   //跳伞
+	OpenParachute                      = 1;   //开启降落伞
+	CloseParachute                     = 2;   //关闭降落伞
+}
+message ItemBaseData
+{
+	optional int32		 ItemId			= 1;
+	optional int32		 Count			= 2;
+	optional int32		 Index			= 3;
+	repeated int32       Exdata			= 4;
+}
+
+message BagBaseData
+{
+	required int32		 				BagId			= 1;
+	required int32		 				NowCount		= 2;
+	repeated ItemBaseData   			Items			= 3;
+	required int32 						NextSecond	 	= 4;
+}
+
+
+message Dict_int_BagBaseData
+{
+	
+}
+
+message Dict_int_ItemBaseData
+{
+
+}
+
+message ItemsChangeData
+{
+	repeated Dict_int_ItemBaseData  	ItemsChange 			=1;
+}
+
+
+message Dict_int_ItemsChangeData
+{
+
+}
+
+message BagsChangeData
+{
+	repeated Dict_int_ItemsChangeData  	BagsChange 			=1;
+}
+
+message BagData
+{
+	repeated Dict_int_BagBaseData  	    Bags 				=1;
+	repeated int32 						Resources			=2;
+}
+
+
+message CircleInfo
+{
+	required int32                  curCircleIndex				= 1;
+	required float                  safeCircleCenterX			= 2;
+	required float                  safeCircleCenterY			= 3;
+	required float                  safeCircleRadius			= 4; 
+	required float                  danagerCircleCenterX		= 5; 
+	required float                  danagerCircleCenterY		= 6; 
+	required float                  danagerCircleRadius			= 7;
+}

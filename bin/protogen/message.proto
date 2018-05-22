@@ -1,0 +1,11 @@
+//排队信息提示
+message TeamCharacterOne
+{
+	required	uint64				CharacterId				= 1;
+	required	string				CharacterName			= 2;
+	required	int32				RoleId					= 3;
+	required	int32				Level					= 4;
+	required	int32				Ladder					= 5;
+	required	int32				FightPoint				= 6;
+	optional	int32				QueueResult				= 7;	//排队结果（此人是否已经同意进入）
+}
